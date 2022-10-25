@@ -10,6 +10,11 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+
+  background-image: radial-gradient(#9d9d9d 5%, transparent 5%),
+  radial-gradient(#9d9d9d 5%, transparent 5%);
+  background-position: 0 0, 50px 50px;
+  background-size: 100px 100px;
 }
 
 #search-box {
@@ -17,4 +22,43 @@ body {
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+}
+.country-list,
+.country-info__data {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.country-list li {
+  display: flex;
+}
+li + li {
+  margin-top: 10px;
+}
+
+.country-list_p {
+  font-weight: 600;
+  margin: 0;
+}
+
+.country-list_img,
+.country-info__flag {
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin-right: 10px;
+}
+
+.country-info__p {
+  font-weight: 800;
+  margin: 0;
+}
+
+.country-info__p span {
+  font-weight: 400;
+}
+
+.country-info__wrap{
+  display: flex;
 }
