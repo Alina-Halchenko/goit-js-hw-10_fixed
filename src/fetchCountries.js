@@ -1,8 +1,9 @@
-export {fetchCountries};
+export { BASE_URL, fetchCountries};
+
+const BASE_URL = 'https://restcountries.com/v3.1/name';
 
 function fetchCountries(searchedCountry){
-  const BASE_URL = 'https://restcountries.com/v3.1/name';
-
+  
   return fetch(`${BASE_URL}/${searchedCountry}?fields=name,capital,population,flags,languages`)
     .then(res => 
     { cleanMarkup();
