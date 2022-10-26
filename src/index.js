@@ -1,7 +1,7 @@
 import './css/styles.css';
 // import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import Notiflix from "notiflix";
-import {BASE_URL, fetchCountries} from './fetchCountries';
+// import {fetchCountries} from './fetchCountries';
 import debounce from 'lodash.debounce';
 
 const refs = {
@@ -10,6 +10,8 @@ const refs = {
   countryInfo: document.querySelector('.country-info'), 
 }
 const DEBOUNCE_DELAY = 300;
+
+
 let countriesMarkup = '';
 let singleCountryMarkup = '';
 
@@ -18,29 +20,16 @@ refs.formImput.addEventListener('input', debounce(onCountrySearch, DEBOUNCE_DELA
 function onCountrySearch(evt){
   const searchedCountry = evt.target.value.trim();
   console.log(searchedCountry);
-  
-  function fetchCountries(searchedCountry){
-    return fetch(`${BASE_URL}/${searchedCountry}?fields=name,capital,population,flags,languages`)
-      .then(res => 
-      { cleanMarkup();
-        if (res.status === 404){
-        Notiflix.Notify.failure('No matches found. Please enter correct name.')}
-        else {
-          return res.json()
-        }
-        })
-      }
 
   if (searchedCountry === ''){
     cleanMarkup();
+    return
   }
 
   fetchCountries(searchedCountry).then(renderMarkups).catch(error => {
     if (!error.status === 404){ 
       return Notiflix.Notify.failure('No matches found. Please enter correct name.')}
   })
-
-
 
 };
 
@@ -99,4 +88,17 @@ function renderMarkups(countries){
     }
 }
 
+function fetchCountries(searchedCountry){
+  const BASE_URL = 'https://restcountries.com/v3.1/name';
+  
+  return fetch(`${BASE_URL}/${searchedCountry}?fields=name,capital,population,flags,languages`)
+    .then(res => 
+    { cleanMarkup();
+      if (res.status === 404){
+      Notiflix.Notify.failure('No matches found. Please enter correct name.')}
+      else {
+        return res.json()
+      }
+      })
+    }
 
